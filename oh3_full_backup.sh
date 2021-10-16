@@ -1,5 +1,5 @@
 #!/bin/bash
-# openHAB3-full_backup_and_restore/oh3_full_backup.sh v0.1 by OliRanks - https://github.com/oliranks/openHAB3-full_backup_and_restore"
+# openHAB3-full_backup_and_restore/oh3_full_backup.sh v0.2 by OliRanks - https://github.com/oliranks/openHAB3-full_backup_and_restore"
 
 TIMESTAMP="`date +%Y%m%d_%H%M%S`";
 BACKUPDIR="/home/openhabian/";
@@ -8,7 +8,7 @@ INFLUXDB="openhab"
 
 if [[ $EUID -ne 0 ]]; then
 echo -e " __________    _____  _________  ____  __ ____ _____________  \n \______   \  /  _  \ \_   ___ \|    |/ _|    |   \______   \ \n  |    |  _/ /  /_\  \/    \  \/|      < |    |   /|     ___/ \n  |    |   \/    |    \     \___|    |  \|    |  / |    |     \n  |______  /\____|__  /\______  /____|__ \______/  |____|     \n         \/         \/        \/        \/                   "
-echo -e "   openHAB3-full_backup_and_restore v0.1 by OliRanks"
+echo -e "   openHAB3-full_backup_and_restore v0.2 by OliRanks"
 echo -e "      https://github.com/oliranks/openHAB3-full_backup_and_restore"
 echo -e ""
 echo -e "\e[96m################################################\e[0m"
@@ -19,11 +19,13 @@ echo -e "\e[96m##### \e[39m- grafana                            \e[96m#####\e[0m
 echo -e "\e[96m################################################\e[0m"
 echo -e "This script must be run as root" 
 echo -e "Usage: sudo ./oh3_full_backup.sh"
+echo -e "";
+echo -e "error: This script must be run as root";
    exit 1
 fi
 
 echo -e " __________    _____  _________  ____  __ ____ _____________  \n \______   \  /  _  \ \_   ___ \|    |/ _|    |   \______   \ \n  |    |  _/ /  /_\  \/    \  \/|      < |    |   /|     ___/ \n  |    |   \/    |    \     \___|    |  \|    |  / |    |     \n  |______  /\____|__  /\______  /____|__ \______/  |____|     \n         \/         \/        \/        \/                   "
-echo -e "   openHAB3-full_backup_and_restore v0.1 by OliRanks"
+echo -e "   openHAB3-full_backup_and_restore v0.2 by OliRanks"
 echo -e "      https://github.com/oliranks/openHAB3-full_backup_and_restore"
 echo -e ""
 echo -e "\e[96m################################################\e[0m"
@@ -89,8 +91,7 @@ echo -e "\e[96m###########################\e[0m"
 echo -e "Copying influxdb config file..."
 sudo cp -arv "/etc/influxdb/influxdb.conf" "$BACKUPDIR$BACKUPNAME-$TIMESTAMP/influxdb/influxdb.conf"
 echo -e "Exporting influxdb database..."
-sudo influxd backup "$BACKUPDIR$BACKUPNAME-$TIMESTAMP/influxdb/metastore/"
-sudo influxd backup -database $INFLUXDB "$BACKUPDIR$BACKUPNAME-$TIMESTAMP/influxdb/db/"
+sudo influxd backup -portable "$BACKUPDIR$BACKUPNAME-$TIMESTAMP/influxdb/db/"
 echo -e ""
 
 echo -e "\e[96m###############################\e[0m"
