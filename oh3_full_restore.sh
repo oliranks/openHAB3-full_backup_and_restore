@@ -1,5 +1,5 @@
 #!/bin/bash
-# openHAB3-full_backup_and_restore oh3_full_restore.sh v0.1 by OliRanks
+# openHAB3-full_backup_and_restore/oh3_full_restore.sh v0.1 by OliRanks - https://github.com/oliranks/openHAB3-full_backup_and_restore"
 
 RESTOREFILE=$1
 RESTOREDIR=$(basename "$RESTOREFILE" | cut -d. -f1)
@@ -44,11 +44,9 @@ echo -e "\e[96m##### \e[39m- grafana                             \e[96m#####\e[0
 echo -e "\e[96m#################################################\e[0m";
 echo -e "This script must be run as root";
 echo -e "Usage: sudo ./oh3_full_restore.sh filename.tar.gz";
-echo -e ""
-echo -e "Error: This script must be run as root";
    exit 1
+   
 fi
-
 if [ ! -f "$RESTOREFILE" ]
 then
 echo -e " _____________________ ____________________________  ____________________\n \______   \_   _____//   _____/\__    ___/\_____  \ \_____   \_   _____/\n  |       _/|    __)_ \_____  \   |    |    /   |   \|       _/|    __)_ \n  |    |   \|        \/        \  |    |   /    |    \    |   \|        \ \n  |____|_  /_______  /_______  /  |____|   \_______  /____|_  /_______  /\n         \/        \/        \/                    \/       \/        \/ "
