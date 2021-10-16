@@ -1,5 +1,5 @@
 #!/bin/bash
-# openHAB3 Backup Script v0.1 by OliRanks
+# openHAB3-full_backup_and_restore/oh3_full_backup.sh v0.1 by OliRanks - https://github.com/oliranks/openHAB3-full_backup_and_restore"
 
 TIMESTAMP="`date +%Y%m%d_%H%M%S`";
 BACKUPDIR="/home/openhabian/";
