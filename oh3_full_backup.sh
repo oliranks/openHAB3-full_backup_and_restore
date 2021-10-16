@@ -9,6 +9,7 @@ INFLUXDB="openhab"
 if [[ $EUID -ne 0 ]]; then
 echo -e " __________    _____  _________  ____  __ ____ _____________  \n \______   \  /  _  \ \_   ___ \|    |/ _|    |   \______   \ \n  |    |  _/ /  /_\  \/    \  \/|      < |    |   /|     ___/ \n  |    |   \/    |    \     \___|    |  \|    |  / |    |     \n  |______  /\____|__  /\______  /____|__ \______/  |____|     \n         \/         \/        \/        \/                   "
 echo -e "   openHAB3-full_backup_and_restore v0.1 by OliRanks"
+echo -e "      https://github.com/oliranks/openHAB3-full_backup_and_restore"
 echo -e ""
 echo -e "\e[96m################################################\e[0m"
 echo -e "\e[96m##### \e[39mCreates a complete backup including: \e[96m#####\e[0m"
@@ -23,6 +24,7 @@ fi
 
 echo -e " __________    _____  _________  ____  __ ____ _____________  \n \______   \  /  _  \ \_   ___ \|    |/ _|    |   \______   \ \n  |    |  _/ /  /_\  \/    \  \/|      < |    |   /|     ___/ \n  |    |   \/    |    \     \___|    |  \|    |  / |    |     \n  |______  /\____|__  /\______  /____|__ \______/  |____|     \n         \/         \/        \/        \/                   "
 echo -e "   openHAB3-full_backup_and_restore v0.1 by OliRanks"
+echo -e "      https://github.com/oliranks/openHAB3-full_backup_and_restore"
 echo -e ""
 echo -e "\e[96m################################################\e[0m"
 echo -e "\e[96m##### \e[39mCreates a complete backup including: \e[96m#####\e[0m"
