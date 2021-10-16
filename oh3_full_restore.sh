@@ -6,13 +6,13 @@ RESTOREDIR=$(basename "$RESTOREFILE" | cut -d. -f1)
 TIMESTAMP="`date +%Y%m%d_%H%M%S`";
 BACKUPDIR="/home/openhabian/";
 BACKUPNAME="openhab3-backup";
-INFLUXDB="openhab"
-TESTDIR="$BACKUPDIR$RESTOREDIR"
+INFLUXDB="openhab"; #influxdb database name
+TESTDIR="$BACKUPDIR$RESTOREDIR";
 
-echo -e " _____________________ ____________________________  ____________________\n \______   \_   _____//   _____/\__    ___/\_____  \ \_____   \_   _____/\n  |       _/|    __)_ \_____  \   |    |    /   |   \|       _/|    __)_ \n  |    |   \|        \/        \  |    |   /    |    \    |   \|        \ \n  |____|_  /_______  /_______  /  |____|   \_______  /____|_  /_______  /\n         \/        \/        \/                    \/       \/        \/ "
-echo -e "   openHAB3-full_backup_and_restore v0.1 by OliRanks"
-echo -e "      https://github.com/oliranks/openHAB3-full_backup_and_restore"
-echo -e ""
+echo -e " _____________________ ____________________________  ____________________\n \______   \_   _____//   _____/\__    ___/\_____  \ \_____   \_   _____/\n  |       _/|    __)_ \_____  \   |    |    /   |   \|       _/|    __)_ \n  |    |   \|        \/        \  |    |   /    |    \    |   \|        \ \n  |____|_  /_______  /_______  /  |____|   \_______  /____|_  /_______  /\n         \/        \/        \/                    \/       \/        \/ ";
+echo -e "   openHAB3-full_backup_and_restore v0.1 by OliRanks";
+echo -e "      https://github.com/oliranks/openHAB3-full_backup_and_restore";
+echo -e "";
 echo -e "\e[96m#################################################\e[0m";
 echo -e "\e[96m##### \e[39mRestores a complete backup including: \e[96m#####\e[0m";
 echo -e "\e[96m##### \e[39m- openHAB3                            \e[96m#####\e[0m";
@@ -32,10 +32,10 @@ fatal() {
 [ $# -lt 1 ] && fatal missing arguments
 
 if [[ $EUID -ne 0 ]]; then
-echo -e " _____________________ ____________________________  ____________________\n \______   \_   _____//   _____/\__    ___/\_____  \ \_____   \_   _____/\n  |       _/|    __)_ \_____  \   |    |    /   |   \|       _/|    __)_ \n  |    |   \|        \/        \  |    |   /    |    \    |   \|        \ \n  |____|_  /_______  /_______  /  |____|   \_______  /____|_  /_______  /\n         \/        \/        \/                    \/       \/        \/ "
-echo -e "   openHAB3-full_backup_and_restore v0.1 by OliRanks"
-echo -e "      https://github.com/oliranks/openHAB3-full_backup_and_restore"
-echo -e ""
+echo -e " _____________________ ____________________________  ____________________\n \______   \_   _____//   _____/\__    ___/\_____  \ \_____   \_   _____/\n  |       _/|    __)_ \_____  \   |    |    /   |   \|       _/|    __)_ \n  |    |   \|        \/        \  |    |   /    |    \    |   \|        \ \n  |____|_  /_______  /_______  /  |____|   \_______  /____|_  /_______  /\n         \/        \/        \/                    \/       \/        \/ ";
+echo -e "   openHAB3-full_backup_and_restore v0.1 by OliRanks";
+echo -e "      https://github.com/oliranks/openHAB3-full_backup_and_restore";
+echo -e "";
 echo -e "\e[96m#################################################\e[0m";
 echo -e "\e[96m##### \e[39mRestores a complete backup including: \e[96m#####\e[0m";
 echo -e "\e[96m##### \e[39m- openHAB3                            \e[96m#####\e[0m";
@@ -49,10 +49,10 @@ echo -e "Usage: sudo ./oh3_full_restore.sh filename.tar.gz";
 fi
 if [ ! -f "$RESTOREFILE" ]
 then
-echo -e " _____________________ ____________________________  ____________________\n \______   \_   _____//   _____/\__    ___/\_____  \ \_____   \_   _____/\n  |       _/|    __)_ \_____  \   |    |    /   |   \|       _/|    __)_ \n  |    |   \|        \/        \  |    |   /    |    \    |   \|        \ \n  |____|_  /_______  /_______  /  |____|   \_______  /____|_  /_______  /\n         \/        \/        \/                    \/       \/        \/ "
-echo -e "   openHAB3-full_backup_and_restore v0.1 by OliRanks"
-echo -e "      https://github.com/oliranks/openHAB3-full_backup_and_restore"
-echo -e ""
+echo -e " _____________________ ____________________________  ____________________\n \______   \_   _____//   _____/\__    ___/\_____  \ \_____   \_   _____/\n  |       _/|    __)_ \_____  \   |    |    /   |   \|       _/|    __)_ \n  |    |   \|        \/        \  |    |   /    |    \    |   \|        \ \n  |____|_  /_______  /_______  /  |____|   \_______  /____|_  /_______  /\n         \/        \/        \/                    \/       \/        \/ ";
+echo -e "   openHAB3-full_backup_and_restore v0.1 by OliRanks";
+echo -e "      https://github.com/oliranks/openHAB3-full_backup_and_restore";
+echo -e "";
 echo -e "\e[96m#################################################\e[0m";
 echo -e "\e[96m##### \e[39mRestores a complete backup including: \e[96m#####\e[0m";
 echo -e "\e[96m##### \e[39m- openHAB3                            \e[96m#####\e[0m";
@@ -61,14 +61,14 @@ echo -e "\e[96m##### \e[39m- grafana                             \e[96m#####\e[0
 echo -e "\e[96m#################################################\e[0m";
 echo -e "This script must be run as root";
 echo -e "Usage: sudo ./oh3_full_restore.sh filename.tar.gz";
-echo -e ""
-echo -e "$RESTOREFILE does not exist"
+echo -e "";
+echo -e "$RESTOREFILE does not exist";
     exit 1
 fi
-echo -e " _____________________ ____________________________  ____________________\n \______   \_   _____//   _____/\__    ___/\_____  \ \_____   \_   _____/\n  |       _/|    __)_ \_____  \   |    |    /   |   \|       _/|    __)_ \n  |    |   \|        \/        \  |    |   /    |    \    |   \|        \ \n  |____|_  /_______  /_______  /  |____|   \_______  /____|_  /_______  /\n         \/        \/        \/                    \/       \/        \/ "
-echo -e "   openHAB3-full_backup_and_restore v0.1 by OliRanks"
-echo -e "      https://github.com/oliranks/openHAB3-full_backup_and_restore"
-echo -e ""
+echo -e " _____________________ ____________________________  ____________________\n \______   \_   _____//   _____/\__    ___/\_____  \ \_____   \_   _____/\n  |       _/|    __)_ \_____  \   |    |    /   |   \|       _/|    __)_ \n  |    |   \|        \/        \  |    |   /    |    \    |   \|        \ \n  |____|_  /_______  /_______  /  |____|   \_______  /____|_  /_______  /\n         \/        \/        \/                    \/       \/        \/ ";
+echo -e "   openHAB3-full_backup_and_restore v0.1 by OliRanks";
+echo -e "      https://github.com/oliranks/openHAB3-full_backup_and_restore";
+echo -e "";
 echo -e "\e[96m#################################################\e[0m";
 echo -e "\e[96m##### \e[39mRestores a complete backup including: \e[96m#####\e[0m";
 echo -e "\e[96m##### \e[39m- openHAB3                            \e[96m#####\e[0m";
@@ -79,7 +79,7 @@ echo -e "\e[96m#################################################\e[0m";
 echo -e "Restoring backup from file: \e[31m$RESTOREFILE\e[0m";
 echo -e "";
 read -p "Are you sure? y/n " -n 1 -r
-echo -e ""
+echo -e "";
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
     [[ "$0" = "$BASH_SOURCE" ]] && echo "Ok, see you next time! ;)" && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
@@ -114,7 +114,7 @@ fi
 sudo rm -rfv "$BACKUPDIR$RESTOREDIR";
 echo -e "Extracting main backup file:";
 sudo tar xvzf $RESTOREFILE;
-echo -e ""
+echo -e "";
 
 echo -e "\e[96m############################\e[0m";
 echo -e "\e[96m##### \e[31mopenHAB3 Restore \e[96m#####\e[0m";
@@ -160,7 +160,7 @@ echo -e "\e[96m#######################\e[0m";
 echo -e "\e[96m##### \e[31mCleaning up \e[96m#####\e[0m";
 echo -e "\e[96m#######################\e[0m";
 read -p "Delete temporary directory: $BACKUPDIR$RESTOREDIR? y/n " -n 1 -r
-echo -e ""
+echo -e "";
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
     [[ "$0" = "$BASH_SOURCE" ]] && echo -e "" && echo -e "Backup restored \e[32msucessfully\e[0m! <- $BACKUPDIR$RESTOREDIR" && exit 1 || return 1
