@@ -7,7 +7,6 @@ TIMESTAMP="`date +%Y%m%d_%H%M%S`";
 BACKUPDIR="/home/openhabian/";
 BACKUPNAME="openhab3-backup";
 INFLUXDB="openhab"; #influxdb database name
-TESTDIR="$BACKUPDIR$RESTOREDIR";
 
 echo -e " _____________________ ____________________________  ____________________\n \______   \_   _____//   _____/\__    ___/\_____  \ \_____   \_   _____/\n  |       _/|    __)_ \_____  \   |    |    /   |   \|       _/|    __)_ \n  |    |   \|        \/        \  |    |   /    |    \    |   \|        \ \n  |____|_  /_______  /_______  /  |____|   \_______  /____|_  /_______  /\n         \/        \/        \/                    \/       \/        \/ ";
 echo -e "   openHAB3-full_backup_and_restore v0.1 by OliRanks";
