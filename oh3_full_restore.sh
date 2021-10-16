@@ -1,5 +1,5 @@
 #!/bin/bash
-# openHAB3-full_backup_and_restore/oh3_full_restore.sh v0.1 by OliRanks - https://github.com/oliranks/openHAB3-full_backup_and_restore"
+# openHAB3-full_backup_and_restore/oh3_full_restore.sh v0.2 by OliRanks - https://github.com/oliranks/openHAB3-full_backup_and_restore"
 
 RESTOREFILE=$1
 RESTOREDIR=$(basename "$RESTOREFILE" | cut -d. -f1)
@@ -7,9 +7,11 @@ TIMESTAMP="`date +%Y%m%d_%H%M%S`";
 BACKUPDIR="/home/openhabian/";
 BACKUPNAME="openhab3-backup";
 INFLUXDB="openhab"; #influxdb database name
+INFLUXPW="password" #influxdb admin password
+GRAFANAUSER="grafana"
 
 echo -e " _____________________ ____________________________  ____________________\n \______   \_   _____//   _____/\__    ___/\_____  \ \_____   \_   _____/\n  |       _/|    __)_ \_____  \   |    |    /   |   \|       _/|    __)_ \n  |    |   \|        \/        \  |    |   /    |    \    |   \|        \ \n  |____|_  /_______  /_______  /  |____|   \_______  /____|_  /_______  /\n         \/        \/        \/                    \/       \/        \/ ";
-echo -e "   openHAB3-full_backup_and_restore v0.1 by OliRanks";
+echo -e "   openHAB3-full_backup_and_restore v0.2 by OliRanks";
 echo -e "      https://github.com/oliranks/openHAB3-full_backup_and_restore";
 echo -e "";
 echo -e "\e[96m#################################################\e[0m";
@@ -32,7 +34,7 @@ fatal() {
 
 if [[ $EUID -ne 0 ]]; then
 echo -e " _____________________ ____________________________  ____________________\n \______   \_   _____//   _____/\__    ___/\_____  \ \_____   \_   _____/\n  |       _/|    __)_ \_____  \   |    |    /   |   \|       _/|    __)_ \n  |    |   \|        \/        \  |    |   /    |    \    |   \|        \ \n  |____|_  /_______  /_______  /  |____|   \_______  /____|_  /_______  /\n         \/        \/        \/                    \/       \/        \/ ";
-echo -e "   openHAB3-full_backup_and_restore v0.1 by OliRanks";
+echo -e "   openHAB3-full_backup_and_restore v0.2 by OliRanks";
 echo -e "      https://github.com/oliranks/openHAB3-full_backup_and_restore";
 echo -e "";
 echo -e "\e[96m#################################################\e[0m";
@@ -43,13 +45,15 @@ echo -e "\e[96m##### \e[39m- grafana                             \e[96m#####\e[0
 echo -e "\e[96m#################################################\e[0m";
 echo -e "This script must be run as root";
 echo -e "Usage: sudo ./oh3_full_restore.sh filename.tar.gz";
+echo -e "";
+echo -e "error: This script must be run as root";
    exit 1
    
 fi
 if [ ! -f "$RESTOREFILE" ]
 then
 echo -e " _____________________ ____________________________  ____________________\n \______   \_   _____//   _____/\__    ___/\_____  \ \_____   \_   _____/\n  |       _/|    __)_ \_____  \   |    |    /   |   \|       _/|    __)_ \n  |    |   \|        \/        \  |    |   /    |    \    |   \|        \ \n  |____|_  /_______  /_______  /  |____|   \_______  /____|_  /_______  /\n         \/        \/        \/                    \/       \/        \/ ";
-echo -e "   openHAB3-full_backup_and_restore v0.1 by OliRanks";
+echo -e "   openHAB3-full_backup_and_restore v0.2 by OliRanks";
 echo -e "      https://github.com/oliranks/openHAB3-full_backup_and_restore";
 echo -e "";
 echo -e "\e[96m#################################################\e[0m";
@@ -65,7 +69,7 @@ echo -e "$RESTOREFILE does not exist";
     exit 1
 fi
 echo -e " _____________________ ____________________________  ____________________\n \______   \_   _____//   _____/\__    ___/\_____  \ \_____   \_   _____/\n  |       _/|    __)_ \_____  \   |    |    /   |   \|       _/|    __)_ \n  |    |   \|        \/        \  |    |   /    |    \    |   \|        \ \n  |____|_  /_______  /_______  /  |____|   \_______  /____|_  /_______  /\n         \/        \/        \/                    \/       \/        \/ ";
-echo -e "   openHAB3-full_backup_and_restore v0.1 by OliRanks";
+echo -e "   openHAB3-full_backup_and_restore v0.2 by OliRanks";
 echo -e "      https://github.com/oliranks/openHAB3-full_backup_and_restore";
 echo -e "";
 echo -e "\e[96m#################################################\e[0m";
@@ -77,7 +81,7 @@ echo -e "\e[96m#################################################\e[0m";
 #echo -e "Usage: sudo ./oh3_full_restore.sh filename.tar.gz";
 echo -e "Restoring backup from file: \e[31m$RESTOREFILE\e[0m";
 echo -e "";
-read -p "Are you sure? y/n " -n 1 -r
+read -p "Are you sure? y/N " -n 1 -r
 echo -e "";
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
@@ -135,10 +139,15 @@ echo -e "\e[96m##### \e[31mInfluxdb Restore \e[96m#####\e[0m";
 echo -e "\e[96m############################\e[0m";
 echo -e "Restoring influxdb config file...";
 sudo cp -arv "$BACKUPDIR$RESTOREDIR/influxdb/influxdb.conf" "/etc/influxdb/influxdb.conf";
-echo -e "Importing influxdb metadata...";
-sudo influxd restore -metadir /var/lib/influxdb/meta "$BACKUPDIR$RESTOREDIR/influxdb/metastore/"
+echo -e "Starting influxdb server...";
+sudo systemctl start influxdb
+echo -e "influxdb server \e[32mstarted\e[0m.";
 echo -e "Importing influxdb database...";
-sudo influxd restore -database $INFLUXDB -datadir /var/lib/influxdb/data "$BACKUPDIR$RESTOREDIR/influxdb/db/"
+sudo influxd restore -portable "$BACKUPDIR$RESTOREDIR/influxdb/db"
+echo -e "Setting directory permissions:";
+sudo chown -vR influxdb:influxdb /var/lib/influxdb
+echo -e "Fixing influxdb permissions for user $GRAFANAUSER.";
+sudo influx -username admin -password $INFLUXPW -execute "GRANT ALL ON $INFLUXDB TO $GRAFANAUSER"
 echo -e "";
 
 echo -e "\e[96m###############################\e[0m";
@@ -150,15 +159,12 @@ echo -e "openhab service \e[32mstarted\e[0m.";
 echo -e "Starting grafana server...";
 sudo systemctl start grafana-server
 echo -e "Grafana server \e[32mstarted\e[0m.";
-echo -e "Starting influxdb server...";
-sudo systemctl start influxdb
-echo -e "influxdb server \e[32mstarted\e[0m.";
 echo -e "";
 
 echo -e "\e[96m#######################\e[0m";
 echo -e "\e[96m##### \e[31mCleaning up \e[96m#####\e[0m";
 echo -e "\e[96m#######################\e[0m";
-read -p "Delete temporary directory: $BACKUPDIR$RESTOREDIR? y/n " -n 1 -r
+read -p "Delete temporary directory: $BACKUPDIR$RESTOREDIR? y/N " -n 1 -r
 echo -e "";
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
